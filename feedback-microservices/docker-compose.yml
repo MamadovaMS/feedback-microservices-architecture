@@ -1,0 +1,23 @@
+services:
+  notifier:
+    build: ./06-notifier-grpc-dotnet
+    ports:
+      - "5257:8080"
+
+  feedback-api:
+    build: ./05-feedback-api-dotnet
+    ports:
+      - "5283:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - notifier
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest

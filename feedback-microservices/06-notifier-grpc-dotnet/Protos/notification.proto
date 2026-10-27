@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "NotifierService";
+
+package notify;
+
+// Сервис для отправки уведомлений
+service Notifier {
+  // Метод отправки email
+  rpc SendEmail (EmailRequest) returns (EmailResponse);
+}
+
+// Данные, которые приходят на сервер
+message EmailRequest {
+  string email = 1;
+  string name = 2;
+  string message = 3;
+}
+
+// Ответ от сервера
+message EmailResponse {
+  bool success = 1;
+  string status_message = 2;
+}
